@@ -2,8 +2,19 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover, user-scalable=no" />
     <title>POWER TV — IPTV Premium</title>
+    <meta name="description" content="POWER TV Premium — IPTV com canais ao vivo, esportes, filmes e infantil." />
+    <meta name="theme-color" content="#06080c" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="POWER TV" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2300d4ff'/%3E%3Ctext x='50' y='68' font-size='58' font-weight='900' text-anchor='middle' fill='%23000'%3EP%3C/text%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2300d4ff'/%3E%3Ctext x='50' y='68' font-size='58' font-weight='900' text-anchor='middle' fill='%23000'%3EP%3C/text%3E%3C/svg%3E" />
+    <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22POWER%20TV%20Premium%22%2C%22short_name%22%3A%22POWER%20TV%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2306080c%22%2C%22theme_color%22%3A%22%2306080c%22%2C%22orientation%22%3A%22any%22%7D" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css" />
@@ -41,6 +52,7 @@
         html,
         body {
             height: 100%;
+            height: 100dvh;
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -48,6 +60,43 @@
             color: var(--t1);
             overflow: hidden;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            touch-action: manipulation;
+            overscroll-behavior: none;
+        }
+        input, textarea {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        button, .chip, .ch-card, .nav-item, .recent-ch {
+            -webkit-tap-highlight-color: transparent;
+        }
+        @media (hover: none) {
+            .ch-card:hover,
+            .nav-item:hover,
+            .btn-primary:hover,
+            .btn-ghost:hover,
+            .icon-btn:hover,
+            .chip:hover,
+            .recent-ch:hover,
+            .p-btn:hover,
+            .p-back:hover,
+            .p-zap:hover,
+            .p-big-play:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            .ch-card:active {
+                transform: scale(0.97);
+                border-color: var(--accent);
+            }
+            .nav-item:active,
+            .chip:active,
+            .icon-btn:active,
+            .p-btn:active {
+                background: var(--surface-h);
+            }
         }
         body::before {
             content: '';
@@ -77,6 +126,7 @@
         .app {
             display: flex;
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
         }
 
@@ -211,6 +261,61 @@
             padding: 0 12px;
         }
 
+        /* ===== BOTTOM NAV (mobile / Android) ===== */
+        .bottom-nav {
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .topbar-right .icon-btn[title="Atalhos"] { display: none; }
+            .bottom-nav {
+                display: flex;
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 55;
+                background: rgba(10, 13, 18, 0.92);
+                backdrop-filter: blur(24px);
+                -webkit-backdrop-filter: blur(24px);
+                border-top: 1px solid var(--border);
+                padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+                justify-content: space-around;
+                align-items: center;
+            }
+            .bottom-nav .nav-item {
+                flex-direction: column;
+                gap: 3px;
+                padding: 6px 4px;
+                border-radius: 12px;
+                min-width: 56px;
+                flex: 1;
+                max-width: 76px;
+            }
+            .bottom-nav .nav-item .nav-icon {
+                font-size: 20px;
+                width: auto;
+            }
+            .bottom-nav .nav-item .nav-label {
+                opacity: 1;
+                width: auto;
+                font-size: 10px;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            .bottom-nav .nav-item.active::before {
+                left: 50%;
+                top: -6px;
+                bottom: auto;
+                transform: translateX(-50%);
+                width: 20px;
+                height: 3px;
+            }
+            .main { padding-bottom: 0; }
+            .content { padding-bottom: calc(78px + env(safe-area-inset-bottom)); }
+            .player-overlay { z-index: 9999; }
+        }
+
         /* ===== MAIN ===== */
         .main {
             flex: 1;
@@ -221,12 +326,13 @@
         }
 
         .topbar {
-            height: 64px;
+            height: calc(64px + env(safe-area-inset-top));
             flex-shrink: 0;
             display: flex;
             align-items: center;
             gap: 16px;
             padding: 0 28px;
+            padding-top: env(safe-area-inset-top);
             background: rgba(6, 8, 12, 0.5);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -324,6 +430,8 @@
             overflow-y: auto;
             overflow-x: hidden;
             padding: 28px;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior-y: contain;
         }
 
         /* ===== HERO ===== */
@@ -672,6 +780,11 @@
             gap: 12px;
             overflow-x: auto;
             padding-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x proximity;
+        }
+        .recent-strip .recent-ch {
+            scroll-snap-align: start;
         }
         .recent-ch {
             flex-shrink: 0;
@@ -760,6 +873,7 @@
             left: 0;
             right: 0;
             padding: 20px 28px;
+            padding-top: calc(20px + env(safe-area-inset-top));
             background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
             display: flex;
             align-items: center;
@@ -1067,7 +1181,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 20px 28px 28px;
+            padding: 20px 28px calc(28px + env(safe-area-inset-bottom));
             background: linear-gradient(0deg, rgba(0, 0, 0, 0.9), transparent);
             z-index: 20;
             opacity: 0;
@@ -1363,12 +1477,18 @@
         @media (max-width:600px) {
             .topbar {
                 padding: 0 14px;
+                padding-top: env(safe-area-inset-top);
+                gap: 10px;
             }
             .topbar-clock {
                 display: none;
             }
+            .topbar-search {
+                max-width: none;
+            }
             .content {
                 padding: 16px;
+                -webkit-overflow-scrolling: touch;
             }
             .hero {
                 height: 200px;
@@ -1422,7 +1542,12 @@
             .shortcuts-panel {
                 width: 280px;
                 right: 10px;
-                bottom: 10px;
+                bottom: calc(88px + env(safe-area-inset-bottom));
+            }
+        }
+        @media (max-width: 768px) {
+            .shortcuts-panel {
+                display: none !important;
             }
         }
     </style>
@@ -1491,6 +1616,25 @@
             </div>
         </div>
     </div>
+
+    <!-- BOTTOM NAV (Android-style, mobile only) -->
+    <nav class="bottom-nav" aria-label="Navegação principal">
+        <button class="nav-item active" data-view="home" onclick="switchView('home')">
+            <span class="nav-icon">🏠</span><span class="nav-label">Início</span>
+        </button>
+        <button class="nav-item" data-view="live" onclick="switchView('live')">
+            <span class="nav-icon">📺</span><span class="nav-label">Ao Vivo</span>
+        </button>
+        <button class="nav-item" data-view="favs" onclick="switchView('favs')">
+            <span class="nav-icon">♥</span><span class="nav-label">Favoritos</span>
+        </button>
+        <button class="nav-item" data-view="movies" onclick="switchView('movies')">
+            <span class="nav-icon">🎬</span><span class="nav-label">Filmes</span>
+        </button>
+        <button class="nav-item" data-view="sports" onclick="switchView('sports')">
+            <span class="nav-icon">⚽</span><span class="nav-label">Esportes</span>
+        </button>
+    </nav>
 
     <!-- PLAYER OVERLAY -->
     <div class="player-overlay" id="playerOverlay">
